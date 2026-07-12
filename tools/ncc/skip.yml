@@ -1,0 +1,6 @@
+g_hWnd: 'extern "C" HWND shared with the C sound library; g_ prefix cannot be stripped under extern "C"'
+_assert(void *, void *, unsigned int): 'CRT function prototype declared by the C sound library'
+strcpy(char *, const char *): 'CRT function prototype declared by the C sound library'
+memset(void *, TonyS32, TonyU32): 'CRT function prototype declared by the C sound library'
+malloc(unsigned int): 'CRT function prototype declared by the C sound library'
+free(void *): 'CRT function prototype declared by the C sound library'

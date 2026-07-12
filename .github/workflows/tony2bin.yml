@@ -1,0 +1,36 @@
+name: Download tony2bin
+
+on:
+  workflow_call:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Restore cached original binaries
+      id: cache-original-binaries
+      uses: actions/cache/restore@v5
+      with:
+        enableCrossOsArchive: true
+        path: tony2bin
+        key: tony2bin
+
+    - uses: actions/checkout@v6
+      if: ${{ !steps.cache-original-binaries.outputs.cache-hit }}
+
+    - name: Download original TONY2 binary
+      if: ${{ !steps.cache-original-binaries.outputs.cache-hit }}
+      run: |
+        wget -q "https://archive.org/download/tony-2_friends/TONY2.7z/TONY2.bin" -O TONY2.bin
+        mkdir -p tony2bin
+        python3 tools/extract_cdrom_file.py TONY2.bin TONY2.EXE tony2bin/TONY2.EXE
+        rm TONY2.bin
+
+    - name: Cache original binaries
+      if: ${{ !steps.cache-original-binaries.outputs.cache-hit }}
+      uses: actions/cache/save@v5
+      with:
+        enableCrossOsArchive: true
+        path: tony2bin
+        key: tony2bin

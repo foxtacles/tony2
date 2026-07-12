@@ -1,0 +1,6 @@
+address,type,size,name,comment
+0x0044ca18,global,16,IID_IDirectDraw2,
+0x0044d478,global,16,GUID_SysKeyboard,
+0x0042b130,global,24,c_dfDIKeyboard,
+0x0042a110,global,24,c_dfDIJoystick,
+0x0044d388,global,16,IID_IDirectInputDevice2A,

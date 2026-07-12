@@ -1,0 +1,32 @@
+reccmp-user.yml
+reccmp-build.yml
+Debug/
+Release/
+*.ncb
+/.vs
+/.vscode
+/.idea
+/.claude
+.env
+.venv
+env/
+venv/
+ENV/
+VENV/
+env.bak/
+venv.bak/
+/build*
+*.swp
+TONY2PROGRESS.*
+*.pyc
+
+# By convention we put the retail binaries into the project root.
+TONY2.EXE
+
+# Data / IDA database files
+/data/
+
+.DS_Store
+*.log
+
+.cache/

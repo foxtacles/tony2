@@ -1,0 +1,18 @@
+targets:
+  TONY2:
+    filename: TONY2.EXE
+    source-root:
+      - TONY2
+      - util
+    hash:
+      sha256: 97d48902c6f3db81a5b8e2fa53171f91cf58bce3c1c9fd8fcbe176285f1bd1c2
+    data-sources:
+      - reccmp/tony2-ascii.csv
+      - reccmp/tony2-floats.csv
+      - reccmp/tony2-guids.csv
+    report:
+      icon: assets/tony2.png
+      ignore-variables:
+        # Cannot be handled right now due to anonymous pointer in struct.
+        - c_dfDIKeyboard
+        - c_dfDIJoystick

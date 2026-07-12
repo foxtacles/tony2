@@ -1,0 +1,24 @@
+address,type,size
+# Sound-library (VC6) float pool constants; VC6 emits __real symbols on the recomp
+# side, these rows resolve the originals.
+0x44e198,float,4
+0x44c800,float,4
+0x44c804,float,4
+0x44c808,float,8
+0x44c810,float,4
+0x44c814,float,4
+0x44c818,float,4
+0x44c848,float,4
+0x44c830,float,8
+0x44c828,float,4
+0x44c838,float,4
+0x44c83c,float,4
+0x44c840,float,4
+0x44c844,float,4
+0x44c7fc,float,4
+0x44c820,float,4
+0x44c824,float,4
+0x44c84c,float,4
+0x44c850,float,4
+0x44c854,float,4
+0x44c81c,float,4
