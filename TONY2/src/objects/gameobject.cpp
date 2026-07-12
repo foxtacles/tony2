@@ -961,8 +961,8 @@ void __fastcall EnemyResolveBaseSets(GameObject* p_object)
 	p_object->m_ext->m_idleSetR = g_videoManager->GetFrameSet(p_object->m_ext->m_idleSetR, 0);
 }
 
-// Fully implemented, kept as STUB because it compares at 83%: the stomp gate (box type
-// bit 1, the height comparison with the 413b00 offsets through the dead fifth-arg slot),
+// Fully implemented, kept as STUB because it compares at 80%: the stomp gate (box type
+// bit 1, the swept player-bottom/enemy-top comparison through the dead fifth-arg slot),
 // victim callback, health decrement, death transition and invincibility all match, but
 // the original caches the own-frame argument in ebp at entry where the recompile
 // re-reads the slot, and the two float locals take swapped slots. Same allocator-
@@ -979,12 +979,12 @@ void __fastcall EnemyTouch(
 	TonyFloat a;
 	TonyFloat b;
 
-	if (p_own->m_kind & 1) {
+	if (p_otherFrame->m_kind & 1) {
 		GetPrevPosition(p_other, (TonyFloat*) &p_extra, &a);
 		GetPrevPosition(p_object, (TonyFloat*) &p_extra, &b);
 
-		if (p_otherFrame->m_top - p_object->m_state->m_worldY + b > p_own->m_bottom - p_other->m_state->m_worldY + a &&
-			p_own->m_bottom >= p_otherFrame->m_top && p_object->m_state->m_moveState == 0) {
+		if (p_otherFrame->m_bottom - p_other->m_state->m_worldY + a < p_own->m_top - p_object->m_state->m_worldY + b &&
+			p_otherFrame->m_bottom >= p_own->m_top && p_object->m_state->m_moveState == 0) {
 			if (p_other->m_state->m_touchFn) {
 				p_other->m_state->m_touchFn(p_other, p_object, -1);
 			}

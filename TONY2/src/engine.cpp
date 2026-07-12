@@ -1754,7 +1754,7 @@ void __fastcall PushSegment(TonyS16 p_x, TonyS16 p_sprite, TonyS16 p_length, Ton
 	g_segmentQueue[g_segmentCount++] = rec;
 }
 
-// Fully implemented, kept as STUB because it compares at 28%: the height gate,
+// Fully implemented, kept as STUB because it compares at 38%: the height gate,
 // track row check and the span-emit loop all match semantically (PushSegment's
 // record layout is proven at 100%), but every scratch register lands one
 // round-robin phase off (height in edx vs ecx, sprite/base reloads swapped,
@@ -1791,7 +1791,7 @@ void __fastcall EmitSpriteRowSegments(
 	do {
 		TonyS32 length = *(TonyS32*) data;
 
-		PushSegment((TonyS16) x, (TonyS16) p_sprite, (TonyS16) (length / 2), (TonyS32) (data + 4));
+		PushSegment((TonyS16) x, (TonyS16) p_layer, (TonyS16) (length / 2), (TonyS32) (data + 4));
 		skip = *(TonyU32*) (data + length + 4);
 		data += length + 8;
 		x += length / 2 + (skip >> 1);

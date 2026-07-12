@@ -17,12 +17,7 @@ static const TonyFloat g_playerSpeedWalk = 8.0f;
 // GLOBAL: TONY2 0x0044c584
 static const TonyFloat g_playerSpeedRun = 18.0f;
 
-// Fully implemented, kept as STUB because it compares at 71%: all four form banks, the
-// speed multipliers and the shared morph tail match, but the original pushes the
-// SetObjectSprite argument at the top of every case body — across seventeen field copies —
-// where cl 11.00.7022 pushes it at the call. Stack-arg pre-caching family (see
-// JoystickEnumCallback (0x405430)). Re-annotate when the vintage is found.
-// STUB: TONY2 0x0040b250
+// FUNCTION: TONY2 0x0040b250
 void __fastcall PlayerSetForm(GameObject* p_object, TonyS32 p_form, TonyS32 p_force)
 {
 	if (p_form == ((CounterTemplate::Head*) p_object->m_head)->m_value && p_force != 1) {
@@ -52,7 +47,7 @@ void __fastcall PlayerSetForm(GameObject* p_object, TonyS32 p_form, TonyS32 p_fo
 		p_object->m_ext->m_poseSet = p_object->m_ext->m_smacksPose;
 		p_object->m_ext->m_specialSetL = p_object->m_ext->m_smacksSpecialL;
 		p_object->m_ext->m_specialSetR = p_object->m_ext->m_smacksSpecialR;
-		SetObjectSprite(p_object->m_state->m_portrait, 5, p_object->m_ext->m_smacksPortrait);
+		SetObjectSprite(p_object->m_state->m_portrait, p_object->m_ext->m_smacksPortrait, 5);
 		break;
 	case 2:
 		p_object->m_ext->m_walkSpeed = g_playerSpeedWalk * 1.25;
@@ -74,7 +69,7 @@ void __fastcall PlayerSetForm(GameObject* p_object, TonyS32 p_form, TonyS32 p_fo
 		p_object->m_ext->m_poseSet = p_object->m_ext->m_tonyPose;
 		p_object->m_ext->m_specialSetL = p_object->m_ext->m_tonySpecialL;
 		p_object->m_ext->m_specialSetR = p_object->m_ext->m_tonySpecialR;
-		SetObjectSprite(p_object->m_state->m_portrait, 5, p_object->m_ext->m_tonyPortrait);
+		SetObjectSprite(p_object->m_state->m_portrait, p_object->m_ext->m_tonyPortrait, 5);
 		break;
 	case 4:
 		p_object->m_ext->m_walkSpeed = g_playerSpeedWalk;
@@ -96,7 +91,7 @@ void __fastcall PlayerSetForm(GameObject* p_object, TonyS32 p_form, TonyS32 p_fo
 		p_object->m_ext->m_poseSet = p_object->m_ext->m_cocoPose;
 		p_object->m_ext->m_specialSetL = p_object->m_ext->m_cocoSpecialL;
 		p_object->m_ext->m_specialSetR = p_object->m_ext->m_cocoSpecialR;
-		SetObjectSprite(p_object->m_state->m_portrait, 5, p_object->m_ext->m_cocoPortrait);
+		SetObjectSprite(p_object->m_state->m_portrait, p_object->m_ext->m_cocoPortrait, 5);
 		break;
 	case 3:
 		p_object->m_ext->m_walkSpeed = g_playerSpeedWalk;
@@ -118,7 +113,7 @@ void __fastcall PlayerSetForm(GameObject* p_object, TonyS32 p_form, TonyS32 p_fo
 		p_object->m_ext->m_poseSet = p_object->m_ext->m_trioPose;
 		p_object->m_ext->m_specialSetL = p_object->m_ext->m_trioSpecialL;
 		p_object->m_ext->m_specialSetR = p_object->m_ext->m_trioSpecialR;
-		SetObjectSprite(p_object->m_state->m_portrait, 5, p_object->m_ext->m_trioPortrait);
+		SetObjectSprite(p_object->m_state->m_portrait, p_object->m_ext->m_trioPortrait, 5);
 		break;
 	}
 
