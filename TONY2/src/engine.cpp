@@ -2275,12 +2275,7 @@ void __fastcall TextCreateLabel(GameObject* p_object)
 	p_object->m_state->m_frameSet = 0;
 }
 
-// Fully implemented, kept as STUB because it compares at 98%: everything matches
-// except the dy/dx glyph-metric locals land at [esp+0x20]/[esp+0x1c] in the original
-// and swapped under SP3 (declaration order, split declaration, and function-scope
-// hoisting all fail to flip it). Local-slot direction family; retest with the
-// original compiler vintage.
-// STUB: TONY2 0x00415f30
+// FUNCTION: TONY2 0x00415f30
 void __fastcall TextDraw(GameObject* p_object)
 {
 	TonyS32 x = 0;
@@ -2298,8 +2293,8 @@ void __fastcall TextDraw(GameObject* p_object)
 		TonyS32 sprite = g_fontSprites
 			[(p_object->m_ext->m_idleSetR << 8) + ((TextLabel*) p_object->m_state->m_prevFrameSet)->m_text[i]];
 		TonyS16* header = (TonyS16*) g_videoManager->m_sprites[sprite];
-		TonyS32 dy = header[2];
-		TonyS32 dx = header[3];
+		TonyS32 dx = header[2];
+		TonyS32 dy = header[3];
 
 		if (p_object->m_ext->m_screenSpace) {
 			g_videoManager->QueueSprite(
