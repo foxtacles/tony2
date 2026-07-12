@@ -58,8 +58,8 @@ struct SpriteRow {
 // BMP loader: reads a 24-bit bottom-up BMP through the unified file object,
 // optionally mirrors it (flag 2), and RLE-encodes it into the sprite stream
 // format ({surface-delta skip, byte length, RGB565 words} runs per row, -1
-// terminated) with a RleRow row table, using the top-left pixel as the
-// transparent key and the anchor words repurposed from the PelsPerMeter fields.
+// terminated) with a RleRow row table, using VideoManager's fixed BGR color key
+// and the anchor words repurposed from the PelsPerMeter fields.
 // Fully implemented, kept as STUB because the encoder's scratch-slot dance
 // compares low under SP3 (this band's register-phase/slot margins); the header,
 // mirror, allocation and tail sections align. Refine against the diff or retest
@@ -117,10 +117,12 @@ TonyS32 VideoManager::LoadSpriteFromBmp(GameFile* p_file, TonyS32 p_key, TonyS32
 	sprite[1] = (TonyU16) infoHeader.biHeight;
 	sprite[2] = (TonyU16) infoHeader.biXPelsPerMeter;
 	sprite[3] = (TonyU16) infoHeader.biYPelsPerMeter;
-	rows = (SpriteRow*) malloc((infoHeader.biHeight + 1) * 12);
-	key = pixels;
-	block = (TonyU32*) (sprite + 4);
-	cursor = sprite + 8;
+	rows = (SpriteRow*) malloc((infoHeader.biHeight + 1) * sizeof(SpriteRow));
+	sprite[4] = 0;
+	sprite[5] = 0;
+	key = &m_reserved0;
+	block = (TonyU32*) (sprite + 8);
+	cursor = sprite + 12;
 	x = 0;
 	row = 0;
 	prevX = 0;
@@ -193,13 +195,11 @@ TonyS32 VideoManager::LoadSpriteFromBmp(GameFile* p_file, TonyS32 p_key, TonyS32
 			prevRow = row;
 		}
 
-		if (wrapped && !done) {
-			continue;
-		}
-
-		if (!done) {
-			block = (TonyU32*) cursor;
-			cursor = (TonyU16*) (block + 2);
+		block = (TonyU32*) cursor;
+		cursor = (TonyU16*) (block + 2);
+		if (done) {
+			block[0] = 0xffffffff;
+			block[1] = 2;
 		}
 	} while (!done);
 
@@ -209,8 +209,9 @@ TonyS32 VideoManager::LoadSpriteFromBmp(GameFile* p_file, TonyS32 p_key, TonyS32
 		rows[i].m_row = 0;
 	}
 
-	rows[0].m_x = (TonyS32) ((TonyU8*) cursor - (TonyU8*) rows - 8);
-	sprite = (TonyU16*) realloc(sprite, (TonyU8*) cursor - (TonyU8*) sprite);
+	TonyU32 encodedSize = (TonyU32) ((TonyU8*) cursor - (TonyU8*) sprite);
+	*(TonyU32*) (sprite + 6) = encodedSize - 0x10;
+	sprite = (TonyU16*) realloc(sprite, encodedSize);
 	slot = AllocSpriteSlot();
 	m_sprites[slot] = sprite;
 	m_spriteRows[slot] = rows;
