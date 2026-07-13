@@ -1637,10 +1637,10 @@ framesets:
 	}
 
 	if (p_object->m_head->m_flags & 0x400) {
-		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_head->m_x * 0.2, p_object->m_head->m_y * 0.2);
+		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_ext->m_dragX * 0.2, p_object->m_ext->m_dragY * 0.2);
 	}
 	else {
-		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_head->m_x, p_object->m_head->m_y);
+		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_ext->m_dragX, p_object->m_ext->m_dragY);
 	}
 
 	if (p_object->m_state->m_velX == 0.0) {
@@ -2056,10 +2056,10 @@ framesets:
 	}
 
 	if (p_object->m_head->m_flags & 0x400) {
-		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_head->m_x * 0.2, p_object->m_head->m_y * 0.2);
+		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_ext->m_dragX * 0.2, p_object->m_ext->m_dragY * 0.2);
 	}
 	else {
-		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_head->m_x, p_object->m_head->m_y);
+		p_object->ApplyGravity((TonyFloat) steps, 0, p_object->m_ext->m_dragX, p_object->m_ext->m_dragY);
 	}
 }
 
